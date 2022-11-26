@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container my-5">
+        <h5 class="my-5">Hello <span id="user"></span></h5>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-block " value="Logout" id="LogOut">
+        </div>
+        
+    </div>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+
+<script type="module">
+
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+
+    const app = initializeApp({
+        apiKey: "AIzaSyBQfv6UObl4l1wOSH3BDqaAhwYMI6MPyTk",
+        authDomain: "fir-auth-d0fa3.firebaseapp.com",
+        projectId: "fir-auth-d0fa3",
+        storageBucket: "fir-auth-d0fa3.appspot.com",
+        messagingSenderId: "758062370839",
+        appId: "1:758062370839:web:2a608229ed603cfbaf4c52"
+    });
+
+
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const uid = user.uid;
+            document.getElementById('user').innerHTML = user.email
+        } else {
+            // User is signed out
+            // ...
+        }
+    });
+
+
+    LogOut.addEventListener('click', (e) => {
+        // console.log("success")
+        signOut(auth).then(() => {
+            window.location.replace('/index.html')
+            // Sign-out successful.
+        }).catch((error) => {
+            // An error happened.
+        })
+    })
+
+
+
+
+
+
+
+</script>
+
+</html>
